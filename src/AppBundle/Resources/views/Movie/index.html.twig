@@ -1,20 +1,20 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Movie list</h1>
+    <h1>Lista wszystkich filmów</h1>
+        
 
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
         {% for entity in entities %}
+            <div class="row clearfix">
+            <div class="col-md-8 column">
+                <div class="col-md-1 column">
+                    <img src="http://placehold.it/190&text=Przykładowy&plakat!">
+                </div>
+
+            </div>
+            <div class="col-md-4 column">
+            </div>
+        </div>
             <tr>
                 <td><a href="{{ path('movie_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.title }}</td>
