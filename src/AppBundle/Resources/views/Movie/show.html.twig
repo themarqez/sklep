@@ -19,6 +19,10 @@
             </tr>
         </tbody>
     </table>
-
+    <h1>Opinie</h1>
+    {% for review in entity.reviews %}
+                    {{review.opinion}}
+                    <hr />
+                {% endfor %}
 
 {% endblock %}

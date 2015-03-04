@@ -1,14 +1,15 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Purchase list</h1>
+    <h1>Lista zamówień</h1>
 
-    <table class="records_list">
+    <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Date</th>
-                <th>Actions</th>
+                <th>#</th>
+                <th>Data</th>
+                <th>Film</th>
+                <th>Akcja</th>
             </tr>
         </thead>
         <tbody>
@@ -17,11 +18,12 @@
                 <td><a href="{{ path('purchase_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{% if entity.date %}{{ entity.date|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('purchase_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                </ul>
+                    {{ entity.movie.title }}
+                </td>
+                <td>
+               
+                        <a href="{{ path('purchase_show', { 'id': entity.id }) }}">Pokaz szczegóły</a>
+                  
                 </td>
             </tr>
         {% endfor %}

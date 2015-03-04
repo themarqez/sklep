@@ -27,7 +27,7 @@
                 <div class="btn-group-vertical" role="group" aria-label="...">
                 <a href="#" data-toggle="modal" data-target="#review_{{entity.id}}" class="btn btn-xs btn-default">Dodaj komentarz</a>
                 <a href="{{ path('movie_show', {id: entity.id})}}" class="btn btn-xs btn-info">Pokaz</a>
-                <a href=# class="btn btn-xs btn-success">Zakup</a>
+                <a href="#" data-toggle="modal" data-target="#purchase_{{entity.id}}"class="btn btn-xs btn-success">Zakup</a>
                 {{ app.user?'<a href=# class="btn btn-xs btn-success">Edytuj</a>':'' }}
              </div>
             </div>
@@ -77,7 +77,7 @@
         location.reload();
         // body...
     }
-    function add (id) {
+    function pay (id) {
         $.post( "{{path('purchase_add')}}", { movie_id: id, address: $('#purchase_'+id+' textarea').val() } );
         $('#purchase_'+id).modal('hide');
         location.href = "{{path('purchase')}}";

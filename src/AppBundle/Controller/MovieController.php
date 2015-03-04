@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Movie;
 use AppBundle\Entity\Review;
+use AppBundle\Entity\Purchase;
 use AppBundle\Form\MovieType;
 
 /**
@@ -38,7 +39,7 @@ class MovieController extends Controller
         );
     }
     /**
-     * @Route("/", name="review_add")
+     * @Route("/radd", name="review_add")
      * @Method("POST")
      */
     public function addReviewAction(Request $request)
@@ -58,7 +59,7 @@ class MovieController extends Controller
         return new Response("dodałem");
     }
     /**
-     * @Route("/", name="purchase_add")
+     * @Route("/padd", name="purchase_add")
      * @Method("POST")
      */
     public function addPurchaseAction(Request $request)
@@ -67,10 +68,9 @@ class MovieController extends Controller
 
         $movie = $em->getRepository('AppBundle:Movie')->findOneById($_POST['movie_id']);
         $entity = new Purchase();
-        $entity->setOpinion($_POST['address']);
+        $entity->setAddress($_POST['address']);
         $entity->setMovie($movie);
         
-        $movie->addReview($entity);
 
         $em->persist($entity);
         $em->flush();
