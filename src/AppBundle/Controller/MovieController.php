@@ -16,7 +16,7 @@ use AppBundle\Form\MovieType;
 /**
  * Movie controller.
  *
- * @Route("/movie")
+ * @Route("/")
  */
 class MovieController extends Controller
 {
@@ -144,7 +144,7 @@ class MovieController extends Controller
     /**
      * Finds and displays a Movie entity.
      *
-     * @Route("/{id}", name="movie_show")
+     * @Route("/m/{id}", name="movie_show")
      * @Method("GET")
      * @Template()
      */

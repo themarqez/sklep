@@ -27,8 +27,12 @@
                 <div class="btn-group-vertical" role="group" aria-label="...">
                 <a href="#" data-toggle="modal" data-target="#review_{{entity.id}}" class="btn btn-xs btn-default">Dodaj komentarz</a>
                 <a href="{{ path('movie_show', {id: entity.id})}}" class="btn btn-xs btn-info">Pokaz</a>
-                <a href="#" data-toggle="modal" data-target="#purchase_{{entity.id}}"class="btn btn-xs btn-success">Zakup</a>
-                {{ app.user?'<a href=# class="btn btn-xs btn-success">Edytuj</a>':'' }}
+                {% if (app.user) %}
+                    <a href="#" data-toggle="modal" data-target="#purchase_{{entity.id}}"class="btn btn-xs btn-success">Zakup</a>
+                {% endif %}
+                {% if (app.user) %}
+                    <a href="{{path("movie_edit", {id: entity.id})}}" class="btn btn-xs btn-success">Edytuj</a>
+                {% endif %}
              </div>
             </div>
             <div class="modal fade" id="review_{{entity.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
