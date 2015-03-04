@@ -3,11 +3,13 @@
 namespace AppBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use AppBundle\Entity\Movie;
+use AppBundle\Entity\Review;
 use AppBundle\Form\MovieType;
 
 /**
@@ -34,6 +36,46 @@ class MovieController extends Controller
         return array(
             'entities' => $entities,
         );
+    }
+    /**
+     * @Route("/", name="review_add")
+     * @Method("POST")
+     */
+    public function addReviewAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $movie = $em->getRepository('AppBundle:Movie')->findOneById($_POST['movie_id']);
+        $entity = new Review();
+        $entity->setOpinion($_POST['opinion']);
+        $entity->setMovie($movie);
+        
+        $movie->addReview($entity);
+
+        $em->persist($entity);
+        $em->flush();
+
+        return new Response("dodałem");
+    }
+    /**
+     * @Route("/", name="purchase_add")
+     * @Method("POST")
+     */
+    public function addPurchaseAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $movie = $em->getRepository('AppBundle:Movie')->findOneById($_POST['movie_id']);
+        $entity = new Purchase();
+        $entity->setOpinion($_POST['address']);
+        $entity->setMovie($movie);
+        
+        $movie->addReview($entity);
+
+        $em->persist($entity);
+        $em->flush();
+
+        return new Response("dodałem");
     }
     /**
      * Creates a new Movie entity.

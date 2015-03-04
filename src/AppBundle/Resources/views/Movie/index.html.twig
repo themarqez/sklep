@@ -17,36 +17,71 @@
                 </div>
             </div>
             <div class="col-md-3 column">
+                3 opinie:<br/>
+                {% for review in entity.reviews|slice(0, 3) %}
+                    {{review.opinion}}
+                    <hr style="padding:0; margin:0;" />
+                {% endfor %}
             </div>
             <div class="col-md-1 column">
-                <a href=# class="btn btn-xs btn-success">Dodaj komentarz</a>
+                <div class="btn-group-vertical" role="group" aria-label="...">
+                <a href="#" data-toggle="modal" data-target="#review_{{entity.id}}" class="btn btn-xs btn-default">Dodaj komentarz</a>
+                <a href="{{ path('movie_show', {id: entity.id})}}" class="btn btn-xs btn-info">Pokaz</a>
+                <a href=# class="btn btn-xs btn-success">Zakup</a>
+                {{ app.user?'<a href=# class="btn btn-xs btn-success">Edytuj</a>':'' }}
+             </div>
             </div>
-        </div>
-            <tr>
-                <td><a href="{{ path('movie_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td></td>
-                <td></td>
-                <td>{{ entity.price }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('movie_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('movie_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
+            <div class="modal fade" id="review_{{entity.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Dodaj opinie</h4>
+                  </div>
+                  <div class="modal-body">
+                    <label>Opinia:</label>
+                   <textarea class="form-control" name="opinion"></textarea>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                    <button type="button" onclick="add({{entity.id}})"class="btn btn-primary">Dodaj</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+              <div class="modal fade" id="purchase_{{entity.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Dodaj opinie</h4>
+                  </div>
+                  <div class="modal-body">
+                    <p> Wersja BETA , finalizowanie płatności nie jest jeszcze zaimplementowane, wersja testowa umożliwa zakup wszystkim </p>
+                    <label>Adres dostawy:</label>
+                   <textarea class="form-control" name="address"></textarea>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zamknij</button>
+                    <button type="button" onclick="pay({{entity.id}})"class="btn btn-danger">Zapłać (test)</button>
+                  </div>
+                </div>
+              </div>
+            </div>
         {% endfor %}
-        </tbody>
-    </table>
-
-        <ul>
-        <li>
-            <a href="{{ path('movie_new') }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
+<script type="text/javascript">
+    
+    function add (id) {
+        $.post( "{{path('review_add')}}", { movie_id: id, opinion: $('#review_'+id+' textarea').val() } );
+        $('#review_'+id).modal('hide');
+        location.reload();
+        // body...
+    }
+    function add (id) {
+        $.post( "{{path('purchase_add')}}", { movie_id: id, address: $('#purchase_'+id+' textarea').val() } );
+        $('#purchase_'+id).modal('hide');
+        location.href = "{{path('purchase')}}";
+        // body...
+    }
+</script>
     {% endblock %}

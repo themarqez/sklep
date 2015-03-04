@@ -49,7 +49,7 @@ class Movie
 
 
     public function __construct() {
-        $this->features = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->reviews = new \Doctrine\Common\Collections\ArrayCollection();
     }
     /**
      * Get id

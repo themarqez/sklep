@@ -29,6 +29,14 @@ class Purchase
     private $date;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="address", type="text")
+     */
+    private $address;
+
+
+    /**
      * @ORM\ManyToOne(targetEntity="Movie")
      * @ORM\JoinColumn(name="movie_id", referencedColumnName="id")
      **/
@@ -93,5 +101,16 @@ class Purchase
     public function getMovie()
     {
         return $this->movie;
+    }
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getAddress()
+    {
+        return $this->address;
     }
 }
